@@ -1,33 +1,46 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchTestData = async () => {
+      try {
+        const res = await fetch(
+          "https://694cc42fda5ddabf00376964.mockapi.io/api/v1/todos/datas"
+        );
+        const json = await res.json();
+        console.log("Test data response: ", json);
+        setData(json);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchTestData();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Dockerize Application Test New</h1>
+
+      {/* Test call API */}
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <h2>API Data</h2>
+      <ul>
+        {data.map((item) => (
+          <li key={item.id} style={{ color: "white" }}>
+            {item.name}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
