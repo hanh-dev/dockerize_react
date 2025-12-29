@@ -46,4 +46,6 @@ jobs:
           aws-region: eu-north-1
 
       - name: Deploy to AWS S3
-        run: aws s3 sync dist s3://react-bucket-hanh --delete
+        run:  | 
+          aws s3 sync dist s3://react-bucket-hanh --delete
+          echo "🚀 Deployed to: http://react-bucket-hanh.s3-website-eu-north-1.amazonaws.com"
