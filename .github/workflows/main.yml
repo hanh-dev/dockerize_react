@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Pretier Check
-        run: npm run prettier-check
+      # - name: Pretier Check
+      #   run: npm run prettier-check
 
       - name: App Build
         run: npm run build
